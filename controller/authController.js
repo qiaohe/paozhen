@@ -15,6 +15,7 @@ module.exports = {
         salesManDAO.findByUserName(userName).then(function (users) {
             if (!users || !users.length) throw new Error(i18n.get('member.not.exists'));
             user = users[0];
+            if (user.status == 1) throw new Error(i18n.get('member.resign.error'));
             if (user.password != md5(password)) throw new Error(i18n.get('member.password.error'));
             var token = uuid.v4();
             redis.set(token, JSON.stringify(user));

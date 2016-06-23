@@ -37,5 +37,10 @@ module.exports = {
             }
         });
         return next();
+    },
+
+    getVersionInfo: function (req, res, next) {
+        res.send({ret: 0, data: config.versionInfo});
+        return next();
     }
 }

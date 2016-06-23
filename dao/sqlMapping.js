@@ -14,9 +14,9 @@ module.exports = {
         findById: 'select * from Hospital where id=?',
         insertRegistration: 'insert Registration set ?',
         findShiftPeriodById: 'select * from ShiftPeriod where hospitalId = ? and id =?',
-        findRegistrations: 'select patientMobile, patientName, departmentName, doctorName, createDate, registrationFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id where r.businessPeopleId =? order by r.createDate desc limit ?, ?',
-        findRegistrationsByMonth: 'select patientMobile, patientName, departmentName, doctorName, createDate, registrationFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id where r.businessPeopleId =? and date_format(createDate,\'%Y%m\')=? order by r.createDate desc limit ?, ?',
-        findRegistrationsByPid: 'select patientMobile, patientName, departmentName, doctorName, r.createDate, registrationFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id left join SalesManPatient smp on smp.mobile = r.patientMobile where smp.id = ? and r.businessPeopleId=? order by r.createDate desc limit ?, ?',
+        findRegistrations: 'select patientMobile, patientName, departmentName, doctorName, createDate, totalFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id where r.businessPeopleId =? order by r.createDate desc limit ?, ?',
+        findRegistrationsByMonth: 'select patientMobile, patientName, departmentName, doctorName, createDate, totalFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id where r.businessPeopleId =? and date_format(createDate,\'%Y%m\')=? order by r.createDate desc limit ?, ?',
+        findRegistrationsByPid: 'select patientMobile, patientName, departmentName, doctorName, r.createDate, totalFee as amount, concat(DATE_FORMAT(r.registerDate, \'%Y-%m-%d \') , p.`name`) as shiftPeriod from Registration r left JOIN ShiftPeriod p on r.shiftPeriod = p.id left join SalesManPatient smp on smp.mobile = r.patientMobile where smp.id = ? and r.businessPeopleId=? order by r.createDate desc limit ?, ?',
         findPatientByMobile: 'select * from PatientBasicInfo where mobile =?',
         deletePatient: 'delete from SalesManPatient where salesMan=? and mobile=?',
         findBySalesManPatients: 'select * from SalesManPatient where salesMan=? and mobile =?',
@@ -31,7 +31,8 @@ module.exports = {
     salesMan: {
         findByUserName: 'select * from SalesMan where mobile = ?',
         updatePassword: 'update SalesMan set password=? where mobile=?',
-        update: 'update SalesMan set ? where id=?'
+        update: 'update SalesMan set ? where id=?',
+        updateCheckInCount: 'update SalesMan set checkInCount = checkInCount + 1 where id=?'
     },
     checkin: {
         insert: 'insert CheckIn set ?',

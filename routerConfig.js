@@ -161,5 +161,10 @@ module.exports = [
         path: "/api/patients/:mobile",
         handler: hospitalController.deletePatient,
         secured: "user"
+    },
+    {
+        method: "get",
+        path: "/api/versionInfo",
+        handler: thirdPartyController.getVersionInfo
     }
 ];

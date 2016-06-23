@@ -7,5 +7,8 @@ module.exports = {
     },
     findByUid: function (uid, page) {
         return db.query(sqlMapping.checkin.findByUid, [uid, page.from, page.size]);
+    },
+    updateCheckInCount: function(salesMan){
+        return db.query(sqlMapping.salesMan.updateCheckInCount, salesMan);
     }
 }

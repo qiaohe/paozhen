@@ -4,14 +4,14 @@ module.exports = {
     server: {
         name: 'cloud platform admin',
         version: '0.0.1',
-        host: 'www.hisforce.cn',
+        host: '10.161.165.33',
         port: 8088
     },
     db: {
-        host: '10.251.31.141',
+        host: '10.161.161.229',
         port: '3306',
         user: 'root',
-        password: 'heqiao75518',
+        password: 'heqiao75518?',
         debug: false,
         multipleStatements: true,
         dateStrings: true,
@@ -28,7 +28,7 @@ module.exports = {
         defaultSysBackground: 'http://7xrtp2.com2.z0.glb.qiniucdn.com/background.jpg'
     },
     redis: {
-        host: '127.0.0.1',
+        host: '10.161.161.229',
         port: 6379
     },
     sms: {
@@ -42,6 +42,13 @@ module.exports = {
         sk: "7zD3aC6xpvp_DfDZ0LJhjMq6n6nB6UVDbl37C5FZ",
         prefix: "http://7xrtp2.com2.z0.glb.qiniucdn.com/"
     },
-    gender: ['男', '女']
+    gender: ['男', '女'],
+    versionInfo: {
+        versionCode: "20001",
+        versionName: "1.0.1",
+        content: "优化界面",
+        force: 0,
+        downloadUrl: "http://7xt9es.com2.z0.glb.qiniucdn.com/apk/runapp/pztApp-yingyongbao-release.apk"
+    }
 };
 

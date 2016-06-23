@@ -18,6 +18,7 @@
   "member.not.exists":"用户不存在",
   "member.password.error":"密码错误",
   "hospital.exists": "医院已经存在，不能重复添加",
-  "member.update.success": "业务员信息更新成功。"
+  "member.update.success": "业务员信息更新成功。",
+  "member.resign.error": "当前用户已离职。"
 
 }

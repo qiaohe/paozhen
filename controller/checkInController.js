@@ -20,8 +20,10 @@ module.exports = {
             checkIn.id = result.insertId;
             redis.set('h:' + req.user.hospitalId + ':u:' + req.user.id + ':checkIn', JSON.stringify(req.body.location));
             redis.incr('h:' + req.user.hospitalId + ':u:' + req.user.id + ':' + moment().format('YYYYMMDD'));
-            redis.incr('h:' + req.user.hospitalId + ':u:' + req.user.id + ':' +moment().format('YYYYMM'));
+            redis.incr('h:' + req.user.hospitalId + ':u:' + req.user.id + ':' + moment().format('YYYYMM'));
             res.send({ret: 0, data: _.omit(checkIn, ['lat', 'lng', 'name', 'salesMan'])});
+        }).then(function (result) {
+            checkinDAO.updateCheckInCount(req.user.id);
         }).catch(function (err) {
             res.send({ret: 1, message: err.message});
         });

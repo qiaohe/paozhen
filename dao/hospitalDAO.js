@@ -89,5 +89,10 @@ module.exports = {
     },
     findSalesManPatientsBy: function (mobile, hospitalId) {
         return db.query(sqlMapping.hospital.findSalesManPatientsBy, [mobile, hospitalId]);
-    }
-}
+    },
+    findHospitalIds: function(){
+        return db.query('select id from Hospital');
+    },
+    findPeriods: function (hospitalId) {
+        return db.query('select id from ShiftPeriod where hospitalId = ? order by name', hospitalId);
+    }}

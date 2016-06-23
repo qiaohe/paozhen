@@ -100,10 +100,19 @@ module.exports = {
     },
     getShitPlan: function (req, res, next) {
         var doctorId = req.params.doctorId;
-        var start = req.query.d;
-        var end = moment(start).add(1, 'w').format('YYYY-MM-DD');
+        var start = moment(req.query.d).add(-1, 'd').format('YYYY-MM-DD');
+        var end = moment(req.query.d).add(1, 'w').format('YYYY-MM-DD');
         hospitalDAO.findShiftPlans(doctorId, start, end, req.query.pid).then(function (plans) {
-            var data = _.groupBy(plans, function (plan) {
+            var filteredPlans = _.filter(plans, function (p) {
+                var date = p.day + ' ' + p.period.split('-')[0];
+                return moment(date, 'YYYY-MM-DD HH:mm').isAfter(moment());
+            });
+
+           var sortedPlans =  _.sortBy(filteredPlans, function(item) {
+               var date = item.day + ' ' + item.period.split('-')[0];
+               return moment(date, 'YYYY-MM-DD HH:mm');
+            });
+            var data = _.groupBy(sortedPlans, function (plan) {
                 moment.locale('zh_CN');
                 return moment(plan.day).format('YYYY-MM-DD dddd');
             });
@@ -193,6 +202,7 @@ module.exports = {
                         registrationType: 7,
                         memberType: 1,
                         businessPeopleId: req.user.id,
+                        businessPeopleName: req.user.name,
                         creator: req.user.id
                     });
                     return hospitalDAO.findPatientBasicInfoBy(registration.patientMobile);
@@ -210,7 +220,9 @@ module.exports = {
                     }
                     return hospitalDAO.insertPatientBasicInfo({
                         name: registration.patientName,
+                        realName: registration.patientName,
                         mobile: registration.patientMobile,
+                        gender:registration.gender,
                         createDate: new Date(),
                         password: md5(registration.patientMobile.substring(registration.patientMobile.length - 6, registration.patientMobile.length)),
                         creator: req.user.id
